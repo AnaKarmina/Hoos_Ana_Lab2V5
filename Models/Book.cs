@@ -17,7 +17,7 @@ namespace Hoos_Ana_Lab2V5.Models
         public DateTime PublishingDate { get; set; }
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
-        public int AuthorID { get; set; }
-        public Author Author { get; set; }
+        public int? AuthorID { get; set; }
+        public Author? Author { get; set; }
     }
 }
