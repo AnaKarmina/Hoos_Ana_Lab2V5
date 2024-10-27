@@ -10,6 +10,7 @@ namespace Hoos_Ana_Lab2V5.Models
         Book book)
         {
             var allCategories = context.Category;
+     
             var bookCategories = new HashSet<int>(
             book.BookCategories.Select(c => c.CategoryID)); //
             AssignedCategoryDataList = new List<AssignedCategoryData>();

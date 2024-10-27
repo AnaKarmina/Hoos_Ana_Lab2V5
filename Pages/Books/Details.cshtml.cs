@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Hoos_Ana_Lab2V5.Data;
 using Hoos_Ana_Lab2V5.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hoos_Ana_Lab2V5.Pages.Books
 {
@@ -18,26 +19,39 @@ namespace Hoos_Ana_Lab2V5.Pages.Books
         {
             _context = context;
         }
-
         public Book Book { get; set; } = default!;
+
+        [Display(Name = "Author")]
+        public string AuthorFullName { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-            if (book == null)
+            Book = await _context.Book
+               .Include(b => b.Publisher)
+                .Include(b => b.Author)
+                .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Book == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Book = book;
-            }
+
+            var authorFullName = Book.Author.FirstName + " " + Book.Author.LastName;
+
+            this.AuthorFullName = authorFullName;
+
             return Page();
+
+
         }
     }
 }
