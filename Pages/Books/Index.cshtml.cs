@@ -20,7 +20,7 @@ namespace Hoos_Ana_Lab2V5.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get; set; } = default!;
+        public IList<Book> Book { get; set; }
         public BookData BookD { get; set; }
         public int BookID { get; set; }
         public int CategoryID { get; set; }
@@ -37,7 +37,7 @@ searchString)
 
             CurrentFilter = searchString;
 
-            //se va include Author conform cu sarcina de la lab 2
+        
             BookD.Books = await _context.Book
              .Include(b => b.Publisher)
              .Include(b => b.Author)
@@ -51,15 +51,15 @@ searchString)
             {
                 BookD.Books = BookD.Books.Where(s => s.Author.FirstName.Contains(searchString)
 
-               || s.Author.LastName.Contains(searchString)
-               || s.Title.Contains(searchString));
-
+                        || s.Author.LastName.Contains(searchString)
+                        || s.Title.Contains(searchString));
+                }
 
                 if (id != null)
                 {
                     BookID = id.Value;
                     Book book = BookD.Books
-                    .Where(i => i.ID == id.Value).Single();
+                        .Where(i => i.ID == id.Value).Single();
                     BookD.Categories = book.BookCategories.Select(s => s.Category);
                 }
                 switch (sortOrder)
@@ -84,4 +84,4 @@ searchString)
             }
         }
     }
-}
+

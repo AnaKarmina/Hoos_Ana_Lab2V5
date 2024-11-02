@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Hoos_Ana_Lab2V5.Data;
 using Hoos_Ana_Lab2V5.Models;
+using Hoos_Ana_Lab2V5.Models.ViewModels;
+
 
 namespace Hoos_Ana_Lab2V5.Pages.Categories
 {
@@ -17,13 +19,31 @@ namespace Hoos_Ana_Lab2V5.Pages.Categories
         public IndexModel(Hoos_Ana_Lab2V5.Data.Hoos_Ana_Lab2V5Context context)
         {
             _context = context;
+
         }
 
-        public IList<Category> Category { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public IList<Category> Category { get; set; } = default!;
+        public CategoriesIndexData CategoryData { get; set; }
+        public int CategoryID { get; set; }
+        public int BookID { get; set; }
+        
+        public async Task OnGetAsync(int? id, int? bookID)
         {
-            Category = await _context.Category.ToListAsync();
+            CategoryData= new CategoriesIndexData();
+            CategoryData.Categories = await _context.Category
+                .Include(i => i.BookCategories)
+                .ThenInclude(i => i.Book)
+                .ThenInclude (c => c.Author)
+                .OrderBy(i => i.CategoryName)
+                .ToListAsync();
+
+            if(id != null)
+            {
+                CategoryID = id.Value;
+                Category category = CategoryData.Categories.Where(i => i.ID == id.Value).Single();
+                CategoryData.Books = category.BookCategories.Select(bc => bc.Book);
+
+            }
         }
     }
 }

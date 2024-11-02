@@ -12,7 +12,7 @@ namespace Hoos_Ana_Lab2V5.Models
             var allCategories = context.Category;
      
             var bookCategories = new HashSet<int>(
-            book.BookCategories.Select(c => c.CategoryID)); //
+                book.BookCategories.Select(c => c.CategoryID)); //
             AssignedCategoryDataList = new List<AssignedCategoryData>();
             foreach (var cat in allCategories)
             {
@@ -34,7 +34,7 @@ namespace Hoos_Ana_Lab2V5.Models
             }
             var selectedCategoriesHS = new HashSet<string>(selectedCategories);
             var bookCategories = new HashSet<int>
-            (bookToUpdate.BookCategories.Select(c => c.Category.ID));
+                (bookToUpdate.BookCategories.Select(c => c.Category.ID));
             foreach (var cat in context.Category)
             {
                 if (selectedCategoriesHS.Contains(cat.ID.ToString()))
@@ -42,11 +42,11 @@ namespace Hoos_Ana_Lab2V5.Models
                     if (!bookCategories.Contains(cat.ID))
                     {
                         bookToUpdate.BookCategories.Add(
-                        new BookCategory
-                        {
-                            BookID = bookToUpdate.ID,
-                            CategoryID = cat.ID
-                        });
+                            new BookCategory
+                            {
+                                BookID = bookToUpdate.ID,
+                                CategoryID = cat.ID
+                            });
                     }
                 }
                 else
@@ -54,9 +54,9 @@ namespace Hoos_Ana_Lab2V5.Models
                     if (bookCategories.Contains(cat.ID))
                     {
                         BookCategory bookToRemove
-                        = bookToUpdate
-                        .BookCategories
-                       .SingleOrDefault(i => i.CategoryID == cat.ID);
+                            = bookToUpdate
+                                .BookCategories
+                                .SingleOrDefault(i => i.CategoryID == cat.ID);
                         context.Remove(bookToRemove);
                     }
                 }
