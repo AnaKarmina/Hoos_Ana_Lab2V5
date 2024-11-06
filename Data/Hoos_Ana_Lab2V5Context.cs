@@ -18,5 +18,7 @@ namespace Hoos_Ana_Lab2V5.Data
         public DbSet<Hoos_Ana_Lab2V5.Models.Publisher> Publisher { get; set; } = default!;
         public DbSet<Hoos_Ana_Lab2V5.Models.Author> Author { get; set; } = default!;
         public DbSet<Hoos_Ana_Lab2V5.Models.Category> Category { get; set; } = default!;
+        public DbSet<Hoos_Ana_Lab2V5.Models.Member> Member { get; set; } = default!;
+        public DbSet<Hoos_Ana_Lab2V5.Models.Borrowing> Borrowing { get; set; } = default!;
     }
 }
