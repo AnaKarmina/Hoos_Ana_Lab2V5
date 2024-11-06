@@ -36,8 +36,18 @@ namespace Hoos_Ana_Lab2V5.Pages.Borrowings
                 return NotFound();
             }
             Borrowing = borrowing;
-           ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-           ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
+
+            var bookList = _context.Book
+            .Include(b => b.Author)
+            .Select(b => new
+            {
+                b.ID,
+                BookFullName = b.Title + " - " + b.Author.FullName
+            });
+
+            ViewData["BookID"] = new SelectList(bookList, "ID", "BookFullName");
+            ViewData["MemberID"] = new SelectList(_context.Member, "ID", "FullName");
+          
             return Page();
         }
 
