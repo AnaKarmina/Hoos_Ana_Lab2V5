@@ -49,7 +49,13 @@ namespace Hoos_Ana_Lab2V5.Pages.Borrowings
                 return NotFound();
             }
 
-            var borrowing = await _context.Borrowing.FindAsync(id);
+          var borrowing = await _context.Borrowing
+         .Include(b => b.Member)
+         .Include(b => b.Book)
+         .ThenInclude(b => b.Author)
+         .FirstOrDefaultAsync(m => m.ID == id);
+
+            //var borrowing = await _context.Borrowing.FindAsync(id);
             if (borrowing != null)
             {
                 Borrowing = borrowing;
