@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Hoos_Ana_Lab2V5.Data;
 using Hoos_Ana_Lab2V5.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hoos_Ana_Lab2V5.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoriesPageModel
     {
         private readonly Hoos_Ana_Lab2V5.Data.Hoos_Ana_Lab2V5Context _context;

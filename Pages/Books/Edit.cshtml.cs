@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Hoos_Ana_Lab2V5.Data;
 using Hoos_Ana_Lab2V5.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hoos_Ana_Lab2V5.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Hoos_Ana_Lab2V5.Data.Hoos_Ana_Lab2V5Context _context;
