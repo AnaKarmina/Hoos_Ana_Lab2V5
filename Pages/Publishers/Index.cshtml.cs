@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Hoos_Ana_Lab2V5.Data;
 using Hoos_Ana_Lab2V5.Models;
 using Hoos_Ana_Lab2V5.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hoos_Ana_Lab2V5.Pages.Publishers
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly Hoos_Ana_Lab2V5.Data.Hoos_Ana_Lab2V5Context _context;

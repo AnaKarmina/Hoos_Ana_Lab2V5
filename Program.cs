@@ -18,6 +18,7 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AllowAnonymousToPage("/Books/Index");
     options.Conventions.AllowAnonymousToPage("/Books/Details");
     options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    
 
 });
 builder.Services.AddDbContext<Hoos_Ana_Lab2V5Context>(options =>
